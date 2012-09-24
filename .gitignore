@@ -10,3 +10,112 @@
 *.lai
 *.la
 *.a
+#include<iostream>
+#include<cmath>
+#include<fstream>//allocates memory for file reading
+#include<string>
+
+using namespace std;
+
+int main()
+{
+//declarations
+double x,a,dx,b,totall,totalr,totalm,total,area,f,fr,fl,z,n,sum_type;
+int i,j;
+cout<<"enter the lower bound"<<endl;
+cin>>a;
+cout<<"enter the upper bound"<<endl;
+cin>>b;
+cout<<"do you want to sum by number of elements or by increment value: \n by elements=0, by increment value=1"<<endl; 
+cin>>sum_type;
+//the user specifies either how many area's or the incrementing function. This was mainly used for 
+//diagnosing problems in the code, when dx was prefered.
+if (sum_type==0)
+   {
+      cout<<"enter the number of elements:"<<endl;
+      cin>>n;
+      dx=(b-a)/n;
+   }
+else
+   {
+      cout<<"enter the increment value"<<endl;
+      cin>>dx;
+   }
+
+cout<<endl;
+cout<<endl;
+//for a leftward Reimman sum, the first f(a) is shifted rightward by dx. So, i=1 not 0. 
+ x=0; 
+ i=1;
+ totall=0;
+//leftward sum loop
+while(x<b)
+{
+          x=a+dx*i;
+          f=x*x+x+1;
+          area=f*dx;
+          totall=totall+area;
+          //cout<<"x:"<<x<<endl;
+          //cout<<"f(x):"<<fr<<endl;
+          //cout<<"area"<<i<<":"<<area<<" "<<endl;
+          //cout<<"total right sum:"<<totalr<<endl;
+          ++i;
+}
+cout<<endl;
+cout<<endl;
+
+ x=0; 
+ i=0;
+ totall=0;
+
+//for a rightward sum, the first value is f(a), so i=0 during first iteration. However, the upper bound is b-dx 
+//because leftward sums by definition don't evaluate f(b). 
+
+//rightward summing loop
+while(x<b-dx)
+{
+          x=a+dx*i;
+          f=x*x+x+1;
+          area=f*dx;
+          totalr=totalr+area;
+          //cout<<"x:"<<x<<endl;
+          //cout<<"f(x):"<<fl<<endl;
+          //cout<<"area"<<i<<":"<<area<<" "<<endl;
+          //cout<<"total left sum:"<<totalr<<endl;
+          ++i;
+}
+
+cout<<endl;
+cout<<endl;
+
+//the midpoint sum takes the value in between f(a) and f(a+dx), so it evaluates f(a+dx-1/2dx) until it reaches b-1/2dx. 
+
+//midpoint
+x=0; 
+i=1;
+totalm=0;
+
+while(x<b-.5*dx)
+{
+          x=(a+dx*i)-.5*dx;
+          f=x*x+x+1;
+          area=f*dx;
+          totalm=totalm+area;
+          //cout<<"x:"<<x<<endl;
+          //cout<<"f(x):"<<fl<<endl;
+          //cout<<"area"<<i<<":"<<area<<" "<<endl;
+          //cout<<"total midpoint sum:"<<totalm<<endl;
+          ++i;
+}
+cout<<endl;
+cout<<endl;
+cout<<"you chose delta="<<dx<<endl;
+
+cout<<"total left sum:"<<totall<<endl;
+cout<<"total right sum:"<<totalr<<endl;
+cout<<"total midpoint sum:"<<totalm<<endl;
+
+system("pause");
+    
+    return 0;
+}
